@@ -1,0 +1,34 @@
+﻿<Page x:Class="OperatorsBpla.View.Pages.TeacherReadOnlyUserLecturePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TeacherReadOnlyUserLecturePage">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Просмотр: UserLecture" FontSize="16" Foreground="White" Margin="0 0 0 8"/>
+
+        <DataGrid Name="UserLectureGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column"
+                  RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding User.Fullname}" Width="250"/>
+                <DataGridTextColumn Header="Лекция" Binding="{Binding Lecture.Title}" Width="300"/>
+                <DataGridCheckBoxColumn Header="Пройдено" Binding="{Binding IsCompleted}" Width="90"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

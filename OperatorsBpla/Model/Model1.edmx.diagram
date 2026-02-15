@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4490f4b1d63044c5bdc997e97b363253" Name="Diagram1">
+        <EntityTypeShape EntityType="DaryaModel.Lecture" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.Level" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.LevelType" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.Question" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.QuestionUser" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.Role" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.Type" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.User" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaryaModel.UserLecture" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="DaryaModel.FK_Lecture_LevelType" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_UserLecture_Lecture" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_LevelType_Level" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_LevelType_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_Question_LevelType" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_QuestionUser_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_QuestionUser_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="DaryaModel.FK_UserLecture_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DaryaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Lecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TextCorrect" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar(max)" />
+          <Property Name="VideoUrl" Type="nvarchar(max)" />
+          <Property Name="IdLevelType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LevelType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLevel" Type="int" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswerOne" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswerTwo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdLevelType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdQuestion" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Done" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdLecture" Type="int" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Lecture_LevelType">
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+          <End Role="Lecture" Type="Self.Lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lecture">
+              <PropertyRef Name="IdLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LevelType_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LevelType">
+              <PropertyRef Name="IdLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LevelType_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LevelType">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_LevelType">
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="IdLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionUser_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionUser" Type="Self.QuestionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionUser">
+              <PropertyRef Name="IdQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="QuestionUser" Type="Self.QuestionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionUser">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLecture_Lecture">
+          <End Role="Lecture" Type="Self.Lecture" Multiplicity="1" />
+          <End Role="UserLecture" Type="Self.UserLecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLecture">
+              <PropertyRef Name="IdLecture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLecture_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLecture" Type="Self.UserLecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLecture">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DaryaModelContainer">
+          <EntitySet Name="Lecture" EntityType="Self.Lecture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LevelType" EntityType="Self.LevelType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionUser" EntityType="Self.QuestionUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLecture" EntityType="Self.UserLecture" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lecture_LevelType" Association="Self.FK_Lecture_LevelType">
+            <End Role="LevelType" EntitySet="LevelType" />
+            <End Role="Lecture" EntitySet="Lecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LevelType_Level" Association="Self.FK_LevelType_Level">
+            <End Role="Level" EntitySet="Level" />
+            <End Role="LevelType" EntitySet="LevelType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LevelType_Type" Association="Self.FK_LevelType_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="LevelType" EntitySet="LevelType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_LevelType" Association="Self.FK_Question_LevelType">
+            <End Role="LevelType" EntitySet="LevelType" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionUser_Question" Association="Self.FK_QuestionUser_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionUser" EntitySet="QuestionUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionUser_User" Association="Self.FK_QuestionUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="QuestionUser" EntitySet="QuestionUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLecture_Lecture" Association="Self.FK_UserLecture_Lecture">
+            <End Role="Lecture" EntitySet="Lecture" />
+            <End Role="UserLecture" EntitySet="UserLecture" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLecture_User" Association="Self.FK_UserLecture_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLecture" EntitySet="UserLecture" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DaryaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Lecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TextCorrect" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdLevelType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LevelType" Relationship="Self.FK_Lecture_LevelType" FromRole="Lecture" ToRole="LevelType" />
+          <NavigationProperty Name="UserLectures" Relationship="Self.FK_UserLecture_Lecture" FromRole="Lecture" ToRole="UserLecture" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="LevelTypes" Relationship="Self.FK_LevelType_Level" FromRole="Level" ToRole="LevelType" />
+        </EntityType>
+        <EntityType Name="LevelType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLevel" Type="Int32" Nullable="false" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lectures" Relationship="Self.FK_Lecture_LevelType" FromRole="LevelType" ToRole="Lecture" />
+          <NavigationProperty Name="Level" Relationship="Self.FK_LevelType_Level" FromRole="LevelType" ToRole="Level" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_LevelType_Type" FromRole="LevelType" ToRole="Type" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_LevelType" FromRole="LevelType" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WrongAnswerOne" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WrongAnswerTwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdLevelType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LevelType" Relationship="Self.FK_Question_LevelType" FromRole="Question" ToRole="LevelType" />
+          <NavigationProperty Name="QuestionUsers" Relationship="Self.FK_QuestionUser_Question" FromRole="Question" ToRole="QuestionUser" />
+        </EntityType>
+        <EntityType Name="QuestionUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdQuestion" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Done" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_QuestionUser_Question" FromRole="QuestionUser" ToRole="Question" />
+          <NavigationProperty Name="User" Relationship="Self.FK_QuestionUser_User" FromRole="QuestionUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="LevelTypes" Relationship="Self.FK_LevelType_Type" FromRole="Type" ToRole="LevelType" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionUsers" Relationship="Self.FK_QuestionUser_User" FromRole="User" ToRole="QuestionUser" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserLectures" Relationship="Self.FK_UserLecture_User" FromRole="User" ToRole="UserLecture" />
+        </EntityType>
+        <EntityType Name="UserLecture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IdLecture" Type="Int32" Nullable="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Lecture" Relationship="Self.FK_UserLecture_Lecture" FromRole="UserLecture" ToRole="Lecture" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserLecture_User" FromRole="UserLecture" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Lecture_LevelType">
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+          <End Role="Lecture" Type="Self.Lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lecture">
+              <PropertyRef Name="IdLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLecture_Lecture">
+          <End Role="Lecture" Type="Self.Lecture" Multiplicity="1" />
+          <End Role="UserLecture" Type="Self.UserLecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecture">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLecture">
+              <PropertyRef Name="IdLecture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LevelType_Level">
+          <End Role="Level" Type="Self.Level" Multiplicity="1" />
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LevelType">
+              <PropertyRef Name="IdLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LevelType_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LevelType">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_LevelType">
+          <End Role="LevelType" Type="Self.LevelType" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LevelType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="IdLevelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionUser_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionUser" Type="Self.QuestionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionUser">
+              <PropertyRef Name="IdQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="QuestionUser" Type="Self.QuestionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionUser">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLecture_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLecture" Type="Self.UserLecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLecture">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DaryaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lectures" EntityType="Self.Lecture" />
+          <EntitySet Name="Levels" EntityType="Self.Level" />
+          <EntitySet Name="LevelTypes" EntityType="Self.LevelType" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="QuestionUsers" EntityType="Self.QuestionUser" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserLectures" EntityType="Self.UserLecture" />
+          <AssociationSet Name="FK_Lecture_LevelType" Association="Self.FK_Lecture_LevelType">
+            <End Role="LevelType" EntitySet="LevelTypes" />
+            <End Role="Lecture" EntitySet="Lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLecture_Lecture" Association="Self.FK_UserLecture_Lecture">
+            <End Role="Lecture" EntitySet="Lectures" />
+            <End Role="UserLecture" EntitySet="UserLectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LevelType_Level" Association="Self.FK_LevelType_Level">
+            <End Role="Level" EntitySet="Levels" />
+            <End Role="LevelType" EntitySet="LevelTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LevelType_Type" Association="Self.FK_LevelType_Type">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="LevelType" EntitySet="LevelTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_LevelType" Association="Self.FK_Question_LevelType">
+            <End Role="LevelType" EntitySet="LevelTypes" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionUser_Question" Association="Self.FK_QuestionUser_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionUser" EntitySet="QuestionUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionUser_User" Association="Self.FK_QuestionUser_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="QuestionUser" EntitySet="QuestionUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLecture_User" Association="Self.FK_UserLecture_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLecture" EntitySet="UserLectures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DaryaModelContainer" CdmEntityContainer="DaryaEntities">
+          <EntitySetMapping Name="Lectures">
+            <EntityTypeMapping TypeName="DaryaModel.Lecture">
+              <MappingFragment StoreEntitySet="Lecture">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TextCorrect" ColumnName="TextCorrect" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+                <ScalarProperty Name="IdLevelType" ColumnName="IdLevelType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels">
+            <EntityTypeMapping TypeName="DaryaModel.Level">
+              <MappingFragment StoreEntitySet="Level">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LevelTypes">
+            <EntityTypeMapping TypeName="DaryaModel.LevelType">
+              <MappingFragment StoreEntitySet="LevelType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdLevel" ColumnName="IdLevel" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="DaryaModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="WrongAnswerOne" ColumnName="WrongAnswerOne" />
+                <ScalarProperty Name="WrongAnswerTwo" ColumnName="WrongAnswerTwo" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="IdLevelType" ColumnName="IdLevelType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionUsers">
+            <EntityTypeMapping TypeName="DaryaModel.QuestionUser">
+              <MappingFragment StoreEntitySet="QuestionUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdQuestion" ColumnName="IdQuestion" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DaryaModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="DaryaModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DaryaModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLectures">
+            <EntityTypeMapping TypeName="DaryaModel.UserLecture">
+              <MappingFragment StoreEntitySet="UserLecture">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdLecture" ColumnName="IdLecture" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
