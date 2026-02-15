@@ -37,7 +37,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Details -->
                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                     <TextBlock Text="Профиль пользователя" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0 0 0 12"/>
 
