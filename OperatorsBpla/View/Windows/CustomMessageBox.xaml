@@ -17,4 +17,3 @@
                 Grid.Row="1" HorizontalAlignment="Center" Click="OkButton_Click"/>
     </Grid>
 </Window>
-    
