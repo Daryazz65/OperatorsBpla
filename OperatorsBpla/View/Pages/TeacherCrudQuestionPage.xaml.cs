@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Bpla.AppData;
+using OperatorsBpla.Model;
+using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using OperatorsBpla.Model;
-using System.Data.Entity;
-using Bpla.AppData;
 using ModelType = OperatorsBpla.Model.Type;
 
 namespace OperatorsBpla.View.Pages
@@ -55,7 +54,6 @@ namespace OperatorsBpla.View.Pages
             LevelCb.ItemsSource = levels;
         }
 
-        // Reflection helpers — в сгенерированных классах текст вопроса может называться Question1 или Question
         private string GetQuestionText(Question q)
         {
             if (q == null) return null;

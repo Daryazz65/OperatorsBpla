@@ -7,30 +7,38 @@
         mc:Ignorable="d"
         Title="Главное окно администратора"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"
-        Background="#131F24">
-    <Grid>
+        WindowState="Maximized">
+    <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#293B43">
-            <Border Height="50"/>
-            <Button HorizontalAlignment="Left" Margin="21 0 0 0" Height="26" x:Name="UserBtn" Click="UserBtn_Click"  Background="Transparent" BorderBrush="Transparent">
-                <TextBlock Text="User" />
-            </Button>
-            <Border Height="17"/>
-            <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="UserLectureBtn" Click="UserLectureBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
-                <TextBlock Text="UserLecture" />
-            </Button>
-            <Border Height="17"/>
-            <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="QuestionUserBtn" Click="QuestionUserBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
-                <TextBlock Text="QuestionUser" />
-            </Button>
-            <Border Height="500"/>
-            <Button Content="Выйти из аккаунта" Margin="10" 
-                    Height="45" Name="GoOutBtn" Click="GoOutBtn_Click"/>
-        </StackPanel>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="0">
+                <Border Height="50"/>
+                <Button HorizontalAlignment="Left" Margin="21 0 0 0" Height="26" x:Name="UserBtn" Click="UserBtn_Click"  Background="Transparent" BorderBrush="Transparent">
+                    <TextBlock Text="User" />
+                </Button>
+                <Border Height="17"/>
+                <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="UserLectureBtn" Click="UserLectureBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
+                    <TextBlock Text="UserLecture" />
+                </Button>
+                <Border Height="17"/>
+                <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="QuestionUserBtn" Click="QuestionUserBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
+                    <TextBlock Text="QuestionUser" />
+                </Button>
+            </StackPanel>
+
+            <Button Grid.Row="1" Content="Выйти из аккаунта" Margin="10" 
+                    Height="45" Name="GoOutBtn" Click="GoOutBtn_Click" VerticalAlignment="Bottom"/>
+        </Grid>
+
         <Frame Name="MainFrameAdmin" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

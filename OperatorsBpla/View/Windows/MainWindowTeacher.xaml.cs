@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using Bpla.AppData;
 using OperatorsBpla.View.Pages;
-using Bpla.AppData;
+using System.Windows;
 
 namespace OperatorsBpla.View.Windows
 {
@@ -15,47 +13,39 @@ namespace OperatorsBpla.View.Windows
         {
             InitializeComponent();
             FrameHelper.selectedFrame = MainFrameTeacher;
-            TeacherCrudLecturePage lecturePage = new TeacherCrudLecturePage();
-            MainFrameTeacher.Navigate(lecturePage);
+            MainFrameTeacher.Navigate(new TeacherCrudLecturePage());
         }
 
         private void LectureBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeacherCrudLecturePage lecturePage = new TeacherCrudLecturePage();
-            MainFrameTeacher.Navigate(lecturePage);
+            MainFrameTeacher.Navigate(new TeacherCrudLecturePage());
         }
 
         private void QuestionBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeacherCrudQuestionPage questionPage = new TeacherCrudQuestionPage();
-            MainFrameTeacher.Navigate(questionPage);
+            MainFrameTeacher.Navigate(new TeacherCrudQuestionPage());
         }
 
         private void UserLectureBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeacherReadOnlyUserLecturePage userLecturePage = new TeacherReadOnlyUserLecturePage();
-            MainFrameTeacher.Navigate(userLecturePage);
+            MainFrameTeacher.Navigate(new TeacherReadOnlyUserLecturePage());
         }
 
         private void QuestionUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            TeacherReadOnlyQuestionUserPage questionUserPage = new TeacherReadOnlyQuestionUserPage();
-            MainFrameTeacher.Navigate(questionUserPage);
-        }
-
-        private void GoOutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            AuthorisationWindow authorisationWindow = new AuthorisationWindow();
-            authorisationWindow.Show();
-            Close();
+            MainFrameTeacher.Navigate(new TeacherReadOnlyQuestionUserPage());
         }
 
         private void ProfileBtn_Click(object sender, RoutedEventArgs e)
         {
-            ProfilePage profilePage = new ProfilePage();
-            MainFrameTeacher.Navigate(profilePage);
+            MainFrameTeacher.Navigate(new ProfilePage());
+        }
+
+        private void GoOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var auth = new AuthorisationWindow();
+            auth.Show();
+            Close();
         }
     }
 }
-
-// ДАНЯ, Я ТЕБЯ ЛЮБЛЮ, НЕ ЗАБУДЬ ОБ ЭТОМ! ТЫ САМЫЙ ЛУЧШИЙ МУЖЧИНА НА СВЕТЕ, Я ТЕБЯ ЛЮБЛЮ!!!!!

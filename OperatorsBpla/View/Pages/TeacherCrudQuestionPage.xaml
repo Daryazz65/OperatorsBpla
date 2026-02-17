@@ -14,9 +14,7 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Форма создания/редактирования -->
-        <Border Grid.Column="0" Background="#1E2A2E" Margin="5" Padding="10">
+        <Border Grid.Column="0" Background="White" Margin="5" Padding="10">
             <StackPanel>
                 <TextBlock Text="Редактирование вопросов" Foreground="White" FontSize="16" Margin="0 0 0 12"/>
 
@@ -49,21 +47,19 @@
             </StackPanel>
         </Border>
 
-        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="#203235" />
+        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="White" />
 
-        <!-- Список / таблица -->
         <DockPanel Grid.Column="2" Margin="5">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0 0 0 8">
                 <Button Name="DeleteBtn" Content="Удалить" Width="100" Margin="0 0 8 0" Click="DeleteBtn_Click"/>
                 <Button Name="SaveBtn" Content="Сохранить все" Width="160" Click="SaveBtn_Click"/>
             </StackPanel>
+
             <DataGrid Name="QuestionGrid" AutoGenerateColumns="False" IsReadOnly="False"
                       CanUserAddRows="False" SelectionMode="Single" SelectionChanged="QuestionGrid_SelectionChanged"
                       RowEditEnding="QuestionGrid_RowEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60" IsReadOnly="True"/>
-                    <!-- В сгенерированных классах поле с текстом вопроса может называться 'Question' или 'Question1'.
-                         В XAML используется 'Question1' (частая генерация) — при ошибке замените на реальное имя поля. -->
                     <DataGridTextColumn Header="Вопрос" Binding="{Binding Question1}" Width="300"/>
                     <DataGridTextColumn Header="Неправ. ответ 1" Binding="{Binding WrongAnswerOne}" Width="160"/>
                     <DataGridTextColumn Header="Неправ. ответ 2" Binding="{Binding WrongAnswerTwo}" Width="160"/>

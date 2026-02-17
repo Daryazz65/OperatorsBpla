@@ -5,77 +5,87 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:OperatorsBpla.View.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="520" d:DesignWidth="920"
       Title="ProfilePage">
 
-    <Grid Background="#131F24">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Width="760" Height="320" Background="#1E2A2E" CornerRadius="10" Padding="20"
+        <Border Width="860" Height="420"  CornerRadius="10" Padding="24"
                 HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="220"/>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Avatar -->
-                <Border Grid.Column="0" Background="#293B43" CornerRadius="8" Padding="16">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Ellipse Width="110" Height="110" Fill="#203235" >
-                            <Ellipse.Effect>
-                                <DropShadowEffect Color="#000" BlurRadius="6" ShadowDepth="2"/>
-                            </Ellipse.Effect>
-                        </Ellipse>
-                        <TextBlock Name="AvatarTb" Text="AB" Foreground="White" FontSize="32" FontWeight="Bold"
-                                   HorizontalAlignment="Center" Margin="-86 -86 0 0"/>
-                        <TextBlock Text="{Binding Fullname}" Foreground="White" FontSize="14" FontWeight="SemiBold"
+                <Border Grid.Column="0"  CornerRadius="8" Padding="18">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <Grid Width="110" Height="110" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Ellipse x:Name="AvatarBgEllipse" Width="110" Height="110"  />
+                            <Image Name="PhotoImg" Width="110" Height="110" Stretch="UniformToFill" Visibility="Collapsed">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="55,55" RadiusX="55" RadiusY="55"/>
+                                </Image.Clip>
+                            </Image>
+                            <TextBlock Name="AvatarTb" Text="AB"  FontSize="32" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <TextBlock Text="{Binding Fullname}"  FontSize="14" FontWeight="SemiBold"
                                    HorizontalAlignment="Center" Margin="0 12 0 0"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 12 0 0" HorizontalAlignment="Center" >
+                            <Button Name="ChangePhotoBtn" Content="Изменить фото" Click="ChangePhotoBtn_Click"
+                                    Width="120" Height="28" Margin="0 0 8 0"/>
+                            <Button Name="DeletePhotoBtn" Content="Удалить фото" Click="DeletePhotoBtn_Click"
+                                    Width="120" Height="28" Visibility="Collapsed"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 
                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                    <TextBlock Text="Профиль пользователя" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0 0 0 12"/>
+                    <TextBlock Text="Профиль пользователя" FontSize="20" FontWeight="Bold" Margin="0 0 0 12"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 4 0 4">
-                        <TextBlock Text="ФИО:" Width="180" Foreground="#AFC6CA"/>
-                        <TextBlock Text="{Binding Fullname}" Foreground="White" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 6 0 6">
+                        <TextBlock Text="ФИО:" Width="200" />
+                        <TextBlock Text="{Binding Fullname}" FontWeight="SemiBold"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 4 0 4">
-                        <TextBlock Text="Логин:" Width="180" Foreground="#AFC6CA"/>
-                        <TextBlock Text="{Binding Login}" Foreground="White" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 6 0 6">
+                        <TextBlock Text="Логин:" Width="200"/>
+                        <TextBlock Text="{Binding Login}"  FontWeight="SemiBold"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 4 0 4">
-                        <TextBlock Text="Дата регистрации:" Width="180" Foreground="#AFC6CA"/>
-                        <TextBlock Text="{Binding RegistrationDate, StringFormat=d}" Foreground="White" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 6 0 6">
+                        <TextBlock Text="Дата регистрации:" Width="200" />
+                        <TextBlock Text="{Binding RegistrationDate, StringFormat=d}"  FontWeight="SemiBold"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 4 0 12">
-                        <TextBlock Text="Роль:" Width="180" Foreground="#AFC6CA"/>
-                        <TextBlock Text="{Binding Role.Name}" Foreground="White" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 6 0 14">
+                        <TextBlock Text="Роль:" Width="200" />
+                        <TextBlock Text="{Binding Role.Name}" FontWeight="SemiBold"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0 8 0 0">
-                        <Border x:Name="CompletedBorder" Background="#203235" Padding="10" CornerRadius="6" Margin="0 0 12 0">
+                        <Border x:Name="CompletedBorder"  Padding="10" CornerRadius="6" Margin="0 0 12 0">
                             <StackPanel>
-                                <TextBlock Text="Лекций завершено" Foreground="#AFC6CA" FontSize="12"/>
-                                <TextBlock Name="CompletedCountTb" Text="0" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="Лекций завершено"  FontSize="12"/>
+                                <TextBlock Name="CompletedCountTb" Text="0"  FontSize="16" FontWeight="Bold"/>
                             </StackPanel>
                         </Border>
 
-                        <Border x:Name="AnsweredBorder" Background="#203235" Padding="10" CornerRadius="6">
+                        <Border x:Name="AnsweredBorder"  Padding="10" CornerRadius="6">
                             <StackPanel>
-                                <TextBlock Text="Вопросов отвечено" Foreground="#AFC6CA" FontSize="12"/>
-                                <TextBlock Name="AnsweredCountTb" Text="0" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="Вопросов отвечено"  FontSize="12"/>
+                                <TextBlock Name="AnsweredCountTb" Text="0" FontSize="16" FontWeight="Bold"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
-                </StackPanel>
+                </StackPanel>   
             </Grid>
         </Border>
     </Grid>

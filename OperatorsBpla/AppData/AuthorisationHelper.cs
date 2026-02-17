@@ -1,11 +1,6 @@
-﻿using OperatorsBpla.View.Windows;
-using OperatorsBpla;
+﻿using OperatorsBpla;
 using OperatorsBpla.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bpla.AppData
 {

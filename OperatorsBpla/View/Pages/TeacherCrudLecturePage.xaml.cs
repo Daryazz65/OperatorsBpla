@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Bpla.AppData;
+using Microsoft.Win32;
+using OperatorsBpla.Model;
+using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using OperatorsBpla.Model;
-using System.Data.Entity;
-using Bpla.AppData;
 using ModelType = OperatorsBpla.Model.Type;
 
 namespace OperatorsBpla.View.Pages
@@ -16,28 +16,22 @@ namespace OperatorsBpla.View.Pages
     public partial class TeacherCrudLecturePage : Page
     {
         private DaryaEntities _context;
-
         public TeacherCrudLecturePage()
         {
             InitializeComponent();
             _context = App.GetContext();
             LoadData();
         }
-
         private void LoadData()
         {
-            // Загружаем справочные таблицы и лекции
             _context.Types.Load();
             _context.Levels.Load();
             _context.LevelTypes.Load();
             _context.Lectures.Load();
-
             TypeCb.ItemsSource = _context.Types.Local.ToList();
             LevelCb.ItemsSource = null;
-
             LectureGrid.ItemsSource = _context.Lectures.Local.ToBindingList();
         }
-
         private void TypeCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedType = TypeCb.SelectedItem as ModelType;
@@ -46,17 +40,13 @@ namespace OperatorsBpla.View.Pages
                 LevelCb.ItemsSource = null;
                 return;
             }
-
-            // Находим все уровни, связанные с выбранным Type через LevelType
             var levels = _context.LevelTypes.Local
                 .Where(lt => lt.IdType == selectedType.Id)
                 .Select(lt => lt.Level)
                 .Distinct()
                 .ToList();
-
             LevelCb.ItemsSource = levels;
         }
-
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -66,21 +56,18 @@ namespace OperatorsBpla.View.Pages
                     MessageBoxHelper.Warning("Введите название уровня.");
                     return;
                 }
-
                 var selectedType = TypeCb.SelectedItem as ModelType;
                 if (selectedType == null)
                 {
                     MessageBoxHelper.Warning("Выберите тип сложности (Type).");
                     return;
                 }
-
                 Level lvl = null;
-                // Если введён новый уровень — создаём Level
                 if (!string.IsNullOrWhiteSpace(NewLevelTb.Text) && NewLevelTb.Text.Trim() != "Введите имя нового уровня")
                 {
                     lvl = new Level { Name = NewLevelTb.Text.Trim() };
                     _context.Levels.Add(lvl);
-                    _context.SaveChanges(); // чтобы получить Id
+                    _context.SaveChanges();
                 }
                 else
                 {
@@ -91,8 +78,6 @@ namespace OperatorsBpla.View.Pages
                         return;
                     }
                 }
-
-                // Ищем или создаём LevelType
                 var levelType = _context.LevelTypes.FirstOrDefault(lt => lt.IdLevel == lvl.Id && lt.IdType == selectedType.Id);
                 if (levelType == null)
                 {
@@ -101,7 +86,6 @@ namespace OperatorsBpla.View.Pages
                     _context.SaveChanges();
                     _context.LevelTypes.Load();
                 }
-
                 var lecture = new Lecture
                 {
                     Title = TitleTb.Text.Trim(),
@@ -110,13 +94,10 @@ namespace OperatorsBpla.View.Pages
                     VideoUrl = string.IsNullOrWhiteSpace(VideoUrlTb.Text) ? null : VideoUrlTb.Text.Trim(),
                     IdLevelType = levelType.Id
                 };
-
                 _context.Lectures.Add(lecture);
                 _context.SaveChanges();
-
                 LectureGrid.SelectedItem = lecture;
                 LectureGrid.ScrollIntoView(lecture);
-
                 MessageBoxHelper.Information("Новый уровень обучения добавлен.");
                 ClearForm();
             }
@@ -125,7 +106,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectedLecture = LectureGrid.SelectedItem as Lecture;
@@ -134,7 +114,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Warning("Выберите запись для изменения.");
                 return;
             }
-
             try
             {
                 if (string.IsNullOrWhiteSpace(TitleTb.Text))
@@ -142,19 +121,16 @@ namespace OperatorsBpla.View.Pages
                     MessageBoxHelper.Warning("Название не может быть пустым.");
                     return;
                 }
-
                 selectedLecture.Title = TitleTb.Text.Trim();
                 selectedLecture.TextCorrect = TextCorrectTb.Text ?? string.Empty;
                 selectedLecture.FilePath = string.IsNullOrWhiteSpace(FilePathTb.Text) ? null : FilePathTb.Text.Trim();
                 selectedLecture.VideoUrl = string.IsNullOrWhiteSpace(VideoUrlTb.Text) ? null : VideoUrlTb.Text.Trim();
-
                 var selectedType = TypeCb.SelectedItem as ModelType;
                 if (selectedType == null)
                 {
                     MessageBoxHelper.Warning("Выберите тип сложности (Type).");
                     return;
                 }
-
                 Level lvl = null;
                 if (!string.IsNullOrWhiteSpace(NewLevelTb.Text) && NewLevelTb.Text.Trim() != "Введите имя нового уровня")
                 {
@@ -171,7 +147,6 @@ namespace OperatorsBpla.View.Pages
                         return;
                     }
                 }
-
                 var levelType = _context.LevelTypes.FirstOrDefault(lt => lt.IdLevel == lvl.Id && lt.IdType == selectedType.Id);
                 if (levelType == null)
                 {
@@ -180,9 +155,7 @@ namespace OperatorsBpla.View.Pages
                     _context.SaveChanges();
                     _context.LevelTypes.Load();
                 }
-
                 selectedLecture.IdLevelType = levelType.Id;
-
                 _context.SaveChanges();
                 LectureGrid.Items.Refresh();
                 MessageBoxHelper.Information("Изменения сохранены.");
@@ -193,7 +166,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             var selected = LectureGrid.SelectedItem as Lecture;
@@ -202,10 +174,8 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Warning("Выберите запись для удаления.");
                 return;
             }
-
             if (!MessageBoxHelper.Question($"Вы точно хотите удалить уровень \"{selected.Title}\"?"))
                 return;
-
             try
             {
                 _context.Lectures.Remove(selected);
@@ -218,7 +188,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -231,7 +200,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void LectureGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = LectureGrid.SelectedItem as Lecture;
@@ -240,19 +208,15 @@ namespace OperatorsBpla.View.Pages
                 ClearForm();
                 return;
             }
-
             TitleTb.Text = selected.Title;
             TextCorrectTb.Text = selected.TextCorrect;
             FilePathTb.Text = selected.FilePath;
             VideoUrlTb.Text = selected.VideoUrl;
             NewLevelTb.Text = string.Empty;
-
-            // Устанавливаем Type и Level по связке LevelType
             if (selected.LevelType != null)
             {
                 var lt = selected.LevelType;
                 TypeCb.SelectedItem = _context.Types.Local.FirstOrDefault(t => t.Id == lt.IdType);
-                // Обновим список уровней и выберем нужный
                 TypeCb_SelectionChanged(null, null);
                 LevelCb.SelectedItem = _context.Levels.Local.FirstOrDefault(l => l.Id == lt.IdLevel);
             }
@@ -262,7 +226,6 @@ namespace OperatorsBpla.View.Pages
                 LevelCb.ItemsSource = null;
             }
         }
-
         private void LectureGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -277,7 +240,6 @@ namespace OperatorsBpla.View.Pages
                 }
             }
         }
-
         private void ChooseFileBtn_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog();
@@ -287,12 +249,10 @@ namespace OperatorsBpla.View.Pages
                 FilePathTb.Text = dlg.FileName;
             }
         }
-
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
             ClearForm();
         }
-
         private void ClearForm()
         {
             TitleTb.Text = string.Empty;

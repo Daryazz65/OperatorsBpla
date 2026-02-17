@@ -7,34 +7,25 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
       Title="AdminUserPage">
-
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="360"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Левая панель: форма редактирования/создания пользователя -->
-        <Border Grid.Column="0" Background="#1E2A2E" Margin="5" Padding="10">
+        <Border Grid.Column="0" Background="White" Margin="5" Padding="10">
             <StackPanel>
-                <TextBlock Text="Редактирование пользователя" Foreground="White" FontSize="16" Margin="0 0 0 12"/>
-
-                <TextBlock Text="Логин" Foreground="White" />
+                <TextBlock Text="Редактирование пользователя" FontSize="16" Margin="0 0 0 12"/>
+                <TextBlock Text="Логин" />
                 <TextBox Name="LoginTb" Margin="0 4 0 8"/>
-
-                <TextBlock Text="Пароль" Foreground="White"/>
+                <TextBlock Text="Пароль" />
                 <PasswordBox Name="PasswordPb" Margin="0 4 0 8"/>
-
-                <TextBlock Text="ФИО" Foreground="White" />
+                <TextBlock Text="ФИО" />
                 <TextBox Name="FullNameTb" Margin="0 4 0 8"/>
-
-                <TextBlock Text="Дата регистрации" Foreground="White" />
+                <TextBlock Text="Дата регистрации" />
                 <DatePicker Name="RegistrationDateDp" Margin="0 4 0 8"/>
-
-                <TextBlock Text="Роль" Foreground="White" />
+                <TextBlock Text="Роль" />
                 <ComboBox Name="RoleCb" Margin="0 4 0 8" DisplayMemberPath="Name"/>
-
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="AddBtn" Content="Добавить" Width="90" Margin="0 0 8 0" Click="AddBtn_Click"/>
                     <Button Name="UpdateBtn" Content="Изменить" Width="90" Margin="0 0 8 0" Click="UpdateBtn_Click"/>
@@ -42,16 +33,12 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
-        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="#203235" />
-
-        <!-- Правая панель: таблица пользователей и связанные операции -->
+        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="White" />
         <DockPanel Grid.Column="2" Margin="5">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0 0 0 8">
                 <Button Name="DeleteBtn" Content="Удалить" Width="100" Margin="0 0 8 0" Click="DeleteBtn_Click"/>
                 <Button Name="SaveBtn" Content="Сохранить все" Width="160" Click="SaveBtn_Click"/>
             </StackPanel>
-
             <DataGrid Name="UserGrid" AutoGenerateColumns="False" IsReadOnly="False"
                       CanUserAddRows="False" SelectionMode="Single" SelectionChanged="UserGrid_SelectionChanged"
                       RowEditEnding="UserGrid_RowEditEnding">

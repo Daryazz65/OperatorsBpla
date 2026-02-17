@@ -7,43 +7,32 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TeacherCrudLecturePage">
-
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="360"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Форма создания/редактирования -->
-        <Border Grid.Column="0" Background="#1E2A2E" Margin="5" Padding="10">
+        <Border Grid.Column="0" Background="White" Margin="5" Padding="10">
             <StackPanel>
                 <TextBlock Text="Редактирование уровня обучения" Foreground="White" FontSize="16" Margin="0 0 0 12"/>
-
-                <TextBlock Text="Название" Foreground="White" />
+                <TextBlock Text="Название" />
                 <TextBox Name="TitleTb" Margin="0 4 0 8"/>
-
                 <TextBlock Text="Описание" Foreground="White"/>
                 <TextBox Name="TextCorrectTb" AcceptsReturn="True" Height="120" TextWrapping="Wrap" Margin="0 4 0 8"/>
-
                 <TextBlock Text="Путь к файлу" Foreground="White" />
                 <StackPanel Orientation="Horizontal" Margin="0 4 0 8">
                     <TextBox Name="FilePathTb" Width="295"/>
                     <Button Content="..." Width="28" Margin="6 0 0 0" Click="ChooseFileBtn_Click"/>
                 </StackPanel>
-
                 <TextBlock Text="Ссылка на видео" Foreground="White" />
                 <TextBox Name="VideoUrlTb" Margin="0 4 0 8"/>
-
                 <TextBlock Text="Тип сложности" Foreground="White" />
                 <ComboBox Name="TypeCb" Margin="0 4 0 8" SelectionChanged="TypeCb_SelectionChanged" DisplayMemberPath="Name"/>
-
                 <TextBlock Text="Уровень — выберите или введите" Foreground="White" />
                 <ComboBox Name="LevelCb" Margin="0 4 0 8" DisplayMemberPath="Name"/>
-
                 <TextBlock Text="Новый уровень (если требуется)" Foreground="White" />
                 <TextBox Name="NewLevelTb" Margin="0 4 0 8" Text="Введите имя нового уровня"/>
-
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="AddBtn" Content="Добавить" Width="90" Margin="0 0 8 0" Click="AddBtn_Click"/>
                     <Button Name="UpdateBtn" Content="Изменить" Width="90" Margin="0 0 8 0" Click="UpdateBtn_Click"/>
@@ -51,16 +40,12 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
         <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="#203235" />
-
-        <!-- Список / таблица -->
         <DockPanel Grid.Column="2" Margin="5">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0 0 0 8">
                 <Button Name="DeleteBtn" Content="Удалить" Width="100" Margin="0 0 8 0" Click="DeleteBtn_Click"/>
                 <Button Name="SaveBtn" Content="Сохранить все" Width="160" Click="SaveBtn_Click"/>
             </StackPanel>
-
             <DataGrid Name="LectureGrid" AutoGenerateColumns="False" IsReadOnly="False"
                       CanUserAddRows="False" SelectionMode="Single" SelectionChanged="LectureGrid_SelectionChanged"
                       RowEditEnding="LectureGrid_RowEditEnding">
@@ -70,7 +55,6 @@
                     <DataGridTextColumn Header="Текст" Binding="{Binding TextCorrect}" Width="*"/>
                     <DataGridTextColumn Header="Файл" Binding="{Binding FilePath}" Width="140"/>
                     <DataGridTextColumn Header="Видео" Binding="{Binding VideoUrl}" Width="140"/>
-                    <!-- Скрываем IdLevelType и показываем связанные человеческие поля -->
                     <DataGridTextColumn Header="Тип сложности" Binding="{Binding LevelType.Type.Name}" Width="160" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Уровень" Binding="{Binding LevelType.Level.Name}" Width="160" IsReadOnly="True"/>
                 </DataGrid.Columns>

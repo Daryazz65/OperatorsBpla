@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using OperatorsBpla.Model;
 using System.Data.Entity;
-using OperatorsBpla.Model;
+using System.Windows.Controls;
 
 namespace OperatorsBpla.View.Pages
 {
@@ -33,12 +20,10 @@ namespace OperatorsBpla.View.Pages
 
         private void LoadData()
         {
-            // Загружаем связанные сущности, чтобы навигационные свойства были доступны в привязке
             _context.Users.Load();
             _context.Lectures.Load();
             _context.UserLectures.Load();
 
-            // Привязываем локальную коллекцию EF — всё read-only
             UserLectureGrid.ItemsSource = _context.UserLectures.Local.ToBindingList();
         }
     }

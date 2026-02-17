@@ -7,29 +7,22 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
       Title="AdminUserLecturePage">
-
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="360"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Левая панель: форма редактирования/создания UserLecture -->
-        <Border Grid.Column="0" Background="#1E2A2E" Margin="5" Padding="10">
+        <Border Grid.Column="0" Background="White" Margin="5" Padding="10">
             <StackPanel>
-                <TextBlock Text="UserLecture — создание / редактирование" Foreground="White" FontSize="16" Margin="0 0 0 12"/>
-
-                <TextBlock Text="ФИО" Foreground="White" />
+                <TextBlock Text="UserLecture — создание / редактирование" FontSize="16" Margin="0 0 0 12"/>
+                <TextBlock Text="ФИО"/>
                 <ComboBox Name="UserCb" DisplayMemberPath="Fullname" Margin="0 4 0 8"/>
-
-                <TextBlock Text="Лекция" Foreground="White" />
+                <TextBlock Text="Лекция"/>
                 <ComboBox Name="LectureCb" DisplayMemberPath="Title" Margin="0 4 0 8"/>
-
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 4 0 8">
-                    <CheckBox Name="IsCompletedChk" Foreground="White" Content="Выполнено" />
+                    <CheckBox Name="IsCompletedChk" Content="Выполнено" />
                 </StackPanel>
-
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <Button Name="AddBtn" Content="Добавить" Width="90" Margin="0 0 8 0" Click="AddBtn_Click"/>
                     <Button Name="UpdateBtn" Content="Изменить" Width="90" Margin="0 0 8 0" Click="UpdateBtn_Click"/>
@@ -37,16 +30,12 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-
-        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="#203235" />
-
-        <!-- Правая панель: таблица UserLecture -->
+        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch"/>
         <DockPanel Grid.Column="2" Margin="5">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0 0 0 8">
                 <Button Name="DeleteBtn" Content="Удалить" Width="100" Margin="0 0 8 0" Click="DeleteBtn_Click"/>
                 <Button Name="SaveBtn" Content="Сохранить все" Width="160" Click="SaveBtn_Click"/>
             </StackPanel>
-
             <DataGrid Name="UserLectureGrid" AutoGenerateColumns="False" IsReadOnly="False"
                       CanUserAddRows="False" SelectionMode="Single" SelectionChanged="UserLectureGrid_SelectionChanged"
                       RowEditEnding="UserLectureGrid_RowEditEnding">

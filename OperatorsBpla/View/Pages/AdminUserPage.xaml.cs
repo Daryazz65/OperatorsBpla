@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Bpla.AppData;
+using OperatorsBpla.Model;
+using System;
+using System.Collections;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Data.Entity;
-using System.Collections;
-using System.Collections.Generic;
-using OperatorsBpla.Model;
-using Bpla.AppData;
 
 namespace OperatorsBpla.View.Pages
 {
@@ -17,24 +16,19 @@ namespace OperatorsBpla.View.Pages
     {
         private DaryaEntities _context;
         private IList _rolesLocalList; // коллекция ролей (если есть)
-
         public AdminUserPage()
         {
             InitializeComponent();
             _context = App.GetContext();
             LoadData();
         }
-
         private void LoadData()
         {
             try
             {
-                // Загружаем основную таблицу и связанные
                 _context.Users.Load();
                 _context.UserLectures.Load();
                 _context.QuestionUsers.Load();
-
-                // Пытаемся загрузить Roles, если такое DbSet существует в контексте
                 var rolesProp = _context.GetType().GetProperty("Roles");
                 if (rolesProp != null)
                 {
@@ -47,7 +41,6 @@ namespace OperatorsBpla.View.Pages
                     if (_rolesLocalList != null)
                         RoleCb.ItemsSource = _rolesLocalList;
                 }
-
                 UserGrid.ItemsSource = _context.Users.Local.ToBindingList();
             }
             catch (Exception ex)
@@ -55,7 +48,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void UserGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = UserGrid.SelectedItem as User;
@@ -64,21 +56,14 @@ namespace OperatorsBpla.View.Pages
                 ClearForm();
                 return;
             }
-
-            // Наполняем форму выбранной записью
             LoginTb.Text = GetStringProp(selected, "Login");
-            PasswordPb.Password = GetStringProp(selected, "Password"); // безопасно: если пароль хранится в модели как открытая строка
-            // Исправлено: используем реальное имя свойства модели
+            PasswordPb.Password = GetStringProp(selected, "Password");
             FullNameTb.Text = GetStringProp(selected, "Fullname");
-
-            // RegistrationDate (DateTime?)
             var reg = GetPropValue(selected, "RegistrationDate");
             if (reg is DateTime dt)
                 RegistrationDateDp.SelectedDate = dt;
             else
                 RegistrationDateDp.SelectedDate = null;
-
-            // Role selection по IdRole
             var idRoleObj = GetPropValue(selected, "IdRole");
             if (idRoleObj != null && _rolesLocalList != null)
             {
@@ -102,7 +87,6 @@ namespace OperatorsBpla.View.Pages
                 RoleCb.SelectedItem = null;
             }
         }
-
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -112,30 +96,23 @@ namespace OperatorsBpla.View.Pages
                     MessageBoxHelper.Warning("Введите логин.");
                     return;
                 }
-
                 var u = new User();
                 SetPropIfExists(u, "Login", LoginTb.Text.Trim());
-                // Исправлено: Fullname
                 SetPropIfExists(u, "Fullname", FullNameTb.Text?.Trim());
                 if (!string.IsNullOrEmpty(PasswordPb.Password))
                     SetPropIfExists(u, "Password", PasswordPb.Password);
-
                 if (RegistrationDateDp.SelectedDate.HasValue)
                     SetPropIfExists(u, "RegistrationDate", RegistrationDateDp.SelectedDate.Value);
                 else
                     SetPropIfExists(u, "RegistrationDate", DateTime.Now);
-
-                // IdRole из выбранной роли
                 if (RoleCb.SelectedItem != null)
                 {
                     var roleId = GetPropValue(RoleCb.SelectedItem, "Id");
                     if (roleId != null)
                         SetPropIfExists(u, "IdRole", roleId);
                 }
-
                 _context.Users.Add(u);
                 _context.SaveChanges();
-
                 UserGrid.SelectedItem = u;
                 UserGrid.ScrollIntoView(u);
                 MessageBoxHelper.Information("Пользователь добавлен.");
@@ -145,7 +122,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
             var selected = UserGrid.SelectedItem as User;
@@ -154,7 +130,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Warning("Выберите пользователя для изменения.");
                 return;
             }
-
             try
             {
                 if (string.IsNullOrWhiteSpace(LoginTb.Text))
@@ -162,23 +137,18 @@ namespace OperatorsBpla.View.Pages
                     MessageBoxHelper.Warning("Логин не может быть пустым.");
                     return;
                 }
-
                 SetPropIfExists(selected, "Login", LoginTb.Text.Trim());
                 if (!string.IsNullOrEmpty(PasswordPb.Password))
                     SetPropIfExists(selected, "Password", PasswordPb.Password);
-                // Исправлено: Fullname
                 SetPropIfExists(selected, "Fullname", FullNameTb.Text?.Trim());
-
                 if (RegistrationDateDp.SelectedDate.HasValue)
                     SetPropIfExists(selected, "RegistrationDate", RegistrationDateDp.SelectedDate.Value);
-
                 if (RoleCb.SelectedItem != null)
                 {
                     var roleId = GetPropValue(RoleCb.SelectedItem, "Id");
                     if (roleId != null)
                         SetPropIfExists(selected, "IdRole", roleId);
                 }
-
                 _context.SaveChanges();
                 UserGrid.Items.Refresh();
                 MessageBoxHelper.Information("Изменения сохранены.");
@@ -188,7 +158,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             var selected = UserGrid.SelectedItem as User;
@@ -197,22 +166,16 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Warning("Выберите пользователя для удаления.");
                 return;
             }
-
             if (!MessageBoxHelper.Question($"Вы точно хотите удалить пользователя (Id={selected.Id}) и все связанные записи?"))
                 return;
-
             try
             {
-                // Удаляем вручную связанные записи
                 var relatedUL = _context.UserLectures.Where(ul => ul.IdUser == selected.Id).ToList();
                 foreach (var r in relatedUL) _context.UserLectures.Remove(r);
-
                 var relatedQU = _context.QuestionUsers.Where(qu => qu.IdUser == selected.Id).ToList();
                 foreach (var r in relatedQU) _context.QuestionUsers.Remove(r);
-
                 _context.Users.Remove(selected);
                 _context.SaveChanges();
-
                 MessageBoxHelper.Information("Пользователь и связанные записи удалены.");
                 ClearForm();
             }
@@ -221,7 +184,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -234,7 +196,6 @@ namespace OperatorsBpla.View.Pages
                 MessageBoxHelper.Error(ex);
             }
         }
-
         private void UserGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -249,12 +210,10 @@ namespace OperatorsBpla.View.Pages
                 }
             }
         }
-
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
             ClearForm();
         }
-
         private void ClearForm()
         {
             LoginTb.Text = string.Empty;
@@ -264,9 +223,7 @@ namespace OperatorsBpla.View.Pages
             RoleCb.SelectedItem = null;
             UserGrid.SelectedItem = null;
         }
-
         #region Reflection helpers (безопасно устанавливают/читают свойства, если они есть)
-
         private void SetPropIfExists(object obj, string propName, object value)
         {
             var prop = obj.GetType().GetProperty(propName);
@@ -280,17 +237,15 @@ namespace OperatorsBpla.View.Pages
                     prop.SetValue(obj, null);
                     return;
                 }
-
                 var targetType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
                 var safeValue = Convert.ChangeType(value, targetType);
                 prop.SetValue(obj, safeValue);
             }
             catch
             {
-                // игнорируем ошибки преобразования
+                // Игнорируем, чтобы не ломать работу при несовпадении типов.
             }
         }
-
         private object GetPropValue(object obj, string propName)
         {
             var prop = obj.GetType().GetProperty(propName);
@@ -301,13 +256,11 @@ namespace OperatorsBpla.View.Pages
             }
             catch { return null; }
         }
-
         private string GetStringProp(object obj, string propName)
         {
             var v = GetPropValue(obj, propName);
             return v?.ToString() ?? string.Empty;
         }
-
         #endregion
     }
 }
