@@ -57,7 +57,6 @@
                 <Button Name="DeleteBtn" Content="Удалить" Width="100" Margin="0 0 8 0" Click="DeleteBtn_Click"/>
                 <Button Name="SaveBtn" Content="Сохранить все" Width="160" Click="SaveBtn_Click"/>
             </StackPanel>
-
             <DataGrid Name="QuestionGrid" AutoGenerateColumns="False" IsReadOnly="False"
                       CanUserAddRows="False" SelectionMode="Single" SelectionChanged="QuestionGrid_SelectionChanged"
                       RowEditEnding="QuestionGrid_RowEditEnding">

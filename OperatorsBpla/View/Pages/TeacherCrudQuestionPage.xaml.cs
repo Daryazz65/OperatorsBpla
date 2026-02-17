@@ -121,7 +121,6 @@ namespace OperatorsBpla.View.Pages
                     CorrectAnswer = CorrectTb.Text ?? string.Empty,
                     IdLevelType = levelType.Id
                 };
-                // Устанавливаем текст вопроса через reflection (Question1 или Question)
                 SetQuestionText(question, QuestionTb.Text.Trim());
 
                 _context.Questions.Add(question);
