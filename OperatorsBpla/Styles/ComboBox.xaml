@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Базовые цвета для всех ComboBox в приложении (можете переопределять локально) -->
     <Style TargetType="ComboBox">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="#252525"/>
@@ -22,14 +21,12 @@
                                           Foreground="{TemplateBinding Foreground}"
                                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid>
-                                    <!-- ContentPresenter без свойства Foreground (оно недопустимо) -->
                                     <ContentPresenter x:Name="ContentSite"
                                                       Content="{TemplateBinding SelectionBoxItem}"
                                                       ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                                       Margin="{TemplateBinding Padding}"
                                                       VerticalAlignment="Center"
                                                       RecognizesAccessKey="True"/>
-                                    <!-- Стрелка -->
                                     <Path x:Name="Arrow" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Center"
                                           Data="M 0 0 L 4 4 L 8 0 Z" Fill="{TemplateBinding Foreground}"/>
                                 </Grid>
@@ -65,7 +62,6 @@
         </Setter>
     </Style>
 
-    <!-- Стиль для пунктов списка: перенёс триггеры в Style.Triggers -->
     <Style TargetType="ComboBoxItem">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
