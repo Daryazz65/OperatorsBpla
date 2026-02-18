@@ -8,7 +8,7 @@
         Title="Главное окно ученика"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
-    <Grid Background="Wheat">
+    <Grid Background="#252525">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="1*" />
@@ -20,18 +20,20 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0">
+            <Image Source="/Resources/Group 4.png" HorizontalAlignment="Left" Width="80" Height="50" Margin="5" VerticalAlignment="Top"/>
+
+            <StackPanel Margin="0 20 0 0">
                 <Border Height="50"/>
                 <Button HorizontalAlignment="Left" Margin="21 0 0 0" Height="26" x:Name="TestingBtn" Click="TestingBtn_Click"  Background="Transparent" BorderBrush="Transparent">
-                    <TextBlock Text="Testing" />
+                    <TextBlock Text="Тестирование" />
                 </Button>
                 <Border Height="17"/>
                 <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="LectionBtn" Click="LectionBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
-                    <TextBlock Text="Lections" />
+                    <TextBlock Text="Лекции" />
                 </Button>
                 <Border Height="17"/>
                 <Button HorizontalAlignment="Left" Margin="20 0 0 0" Height="26" x:Name="ProfileBtn" Click="ProfileBtn_Click"  Background="Transparent" BorderBrush="Transparent" >
-                    <TextBlock Text="Profile" />
+                    <TextBlock Text="Профиль" />
                 </Button>
             </StackPanel>
 

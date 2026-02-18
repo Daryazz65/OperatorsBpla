@@ -306,6 +306,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Group 4.png" />
     <Resource Include="Resources\Безымянный.png" />
   </ItemGroup>
   <ItemGroup>

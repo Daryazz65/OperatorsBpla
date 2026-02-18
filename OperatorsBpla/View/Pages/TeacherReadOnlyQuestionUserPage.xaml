@@ -11,7 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Просмотр: QuestionUser" FontSize="16" Foreground="White" Margin="0 0 0 8"/>
+        <TextBlock Text="Просмотр: Ученики и вопросы" FontSize="16" Margin="0 0 0 8"/>
         <DataGrid Name="QuestionUserGrid"
                   Grid.Row="1"
                   AutoGenerateColumns="False"

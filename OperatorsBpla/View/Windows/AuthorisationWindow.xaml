@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Окно авторизации" Height="450" Width="700" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="#141414">
         <Grid.RowDefinitions>
             <RowDefinition Height=".6*" />
             <RowDefinition Height="30" />
@@ -41,5 +41,6 @@
                 VerticalAlignment="Top" Margin="270 0 270 0" Height="30" Click="CaptchaBtn_Click"
                 Background="Transparent" BorderBrush="Transparent"/>
         <Button Name="EnterBtn" Margin="120 0 115 0" Click="EnterBtn_Click" Content="Войти" Grid.Row="5"/>
+        <Image Source="/Resources/Group 4.png" HorizontalAlignment="Left" Width="80" Height="50" Margin="5" VerticalAlignment="Top"/>
     </Grid>
 </Window>

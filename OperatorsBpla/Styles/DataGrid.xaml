@@ -1,13 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="#026DD0" />
+        <Setter Property="Background" Value="#9BD100" />
         <Setter Property="FontWeight" Value="UltraLight" />
     </Style>
     <Style TargetType="DataGridRowsPresenter">
-        <Setter Property="Background" Value="#131F24" />
-    </Style>
-    <Style TargetType="DataGridCell">
-        <Setter Property="Background" Value="#131F24" />
+        <Setter Property="Background" Value="#141414" />
     </Style>
 </ResourceDictionary>

@@ -15,7 +15,7 @@ namespace OperatorsBpla.View.Pages
     public partial class AdminUserPage : Page
     {
         private DaryaEntities _context;
-        private IList _rolesLocalList; // коллекция ролей (если есть)
+        private IList _rolesLocalList; 
         public AdminUserPage()
         {
             InitializeComponent();
@@ -243,7 +243,7 @@ namespace OperatorsBpla.View.Pages
             }
             catch
             {
-                // Игнорируем, чтобы не ломать работу при несовпадении типов.
+
             }
         }
         private object GetPropValue(object obj, string propName)

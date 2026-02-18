@@ -18,7 +18,7 @@ namespace OperatorsBpla.View.Pages
         private DaryaEntities _context;
         private List<Question> _questions = new List<Question>();
         private List<List<string>> _options = new List<List<string>>();
-        private List<int?> _selectedOptionIndex = new List<int?>(); // хранит выбор пользователя для каждого вопроса
+        private List<int?> _selectedOptionIndex = new List<int?>(); 
         private int _currentIndex = -1;
         private int _correctCount = 0;
         private LevelType _currentLevelType;

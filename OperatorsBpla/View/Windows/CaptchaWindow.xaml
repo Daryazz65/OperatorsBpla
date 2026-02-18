@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OperatorsBpla.View.Windows"
         mc:Ignorable="d"
-        Title="Captcha" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid >
+        Title="Капча" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#141414">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

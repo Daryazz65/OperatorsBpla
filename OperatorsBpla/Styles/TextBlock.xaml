@@ -5,14 +5,16 @@
         <Setter Property="FontFamily" Value="Tahoma" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White" />
     </Style>
     <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="Tahoma" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#026DD0" />
-        <Setter Property="Background" Value="#131F24" />
+        <Setter Property="BorderBrush" Value="#9BD100" />
+        <Setter Property="Background" Value="#141414" />
         <Setter Property="Height" Value="40"/>
+        <Setter Property="Foreground" Value="White" />
     </Style>
 </ResourceDictionary>

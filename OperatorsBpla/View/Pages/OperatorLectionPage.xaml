@@ -12,17 +12,17 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Background="White" Padding="8" Margin="0 0 6 0">
+        <Border Background="#141414" Padding="8" Margin="0 0 6 0">
             <StackPanel>
                 <TextBlock Text="Лекции" FontSize="16" Margin="0 0 0 8"/>
                 <ListBox Name="LectureList" DisplayMemberPath="Title"
-                         SelectionChanged="LectureList_SelectionChanged"  />
+                         SelectionChanged="LectureList_SelectionChanged" Background="#141414" />
             </StackPanel>
         </Border>
         <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" />
-        <Border Grid.Column="2" Background="White" Padding="12">
+        <Border Grid.Column="2" Background="#141414" Padding="12">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
+                <StackPanel Background="#252525">
                     <TextBlock Text="Детали лекции" FontSize="25" Margin="0 0 0 12"/>
                     <TextBlock Text="Название" FontSize="14"/>
                     <TextBlock Name="TitleTb" Text="—" Margin="0 4 0 8"/>
@@ -32,7 +32,7 @@
                     <TextBlock Name="LevelTb" Text="—" Margin="0 4 0 8"/>
                     <TextBlock Text="Описание" FontSize="14"/>
                     <TextBox Name="TextCorrectTb" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="180"
-                             BorderBrush="Gray" Margin="0 4 0 12"/>
+                             BorderBrush="Black" Margin="0 4 0 12"/>
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
                         <Button Name="OpenFileBtn" Content="Открыть файл" Width="150" Margin="0 0 8 0" Click="OpenFileBtn_Click"/>
                         <Button Name="OpenVideoBtn" Content="Открыть видео" Width="150" Click="OpenVideoBtn_Click"/>

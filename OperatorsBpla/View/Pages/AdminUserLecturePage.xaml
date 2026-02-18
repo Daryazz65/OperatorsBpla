@@ -13,9 +13,9 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Background="White" Margin="5" Padding="10">
+        <Border Background="#141414" Margin="5" Padding="10">
             <StackPanel>
-                <TextBlock Text="UserLecture — создание / редактирование" FontSize="16" Margin="0 0 0 12"/>
+                <TextBlock Text="Ученики и лекции" FontSize="16" Margin="0 0 0 12"/>
                 <TextBlock Text="ФИО"/>
                 <ComboBox Name="UserCb" DisplayMemberPath="Fullname" Margin="0 4 0 8"/>
                 <TextBlock Text="Лекция"/>
